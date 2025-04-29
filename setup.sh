@@ -24,6 +24,11 @@ _detectDistro() {
         installer="arch"
         echo ":: Installer for Arch"
     fi
+    if [ -f /etc/lfs-release ] ;then
+        distro="lfs"
+        installer="lfs"
+        echo ":: Installer for LFS"
+    fi
 }
 
 # Check if package is installed
@@ -88,6 +93,30 @@ _installPackagesFedora() {
     sudo dnf install --assumeyes "${toInstall[@]}"
 }
 
+# Install required packages
+_installPackagesLFS(){
+    if [ -x /usr/bin/git ]; then # "Which" is somehow a BLFS package, so it cannot be used to detect git.
+        echo "Git is installed at /usr/bin/git";
+        return;
+    else
+        echo "Error: Git not found in /usr/bin/git. Git must be installed before using this script.";
+        exit 130;
+    fi;
+    mkdir ~/tmp/
+    echo ":: Created temporary folder"
+    cd ~/tmp/
+    git clone https://github.com/bjl32/figlet-lfs.git
+    echo ":: Obtained figlet source"
+    cd figlet-lfs
+    make -j$(nproc)
+    echo ":: Compiled figlet."
+    make install
+    echo ":: Installed figlet."
+    cd ~
+    rm -r ~/tmp
+    echo ":: Cleaned up."
+}
+
 # ----------------------------------------------------- 
 # Packages
 # ----------------------------------------------------- 
@@ -143,31 +172,47 @@ while true; do
 done
 
 # ----------------------------------------------------- 
-# Detect Distribution
+# Detect Distribution (Rewritten)
 # ----------------------------------------------------- 
-_detectDistro
-if [ -z $distro ] ;then
-    echo "ERROR: Your Linux distribution could not be detected or is not supported."
-    echo
-    echo "Please select one of the following installation profiles or cancel the installation."
-    echo
-    version=$(gum choose "arch" "fedora" "cancel")
-    if [ "$version" == "arch" ] ;then
-        echo ":: Installer for Arch"
-        distro="arch"
-        installer="arch"
-    elif [ "$version" == "rolling-release" ] ;then
-        echo ":: Installer for Fedora"
-        distro="fedora"
-        installer="fedora"    
-    elif [ "$version" == "cancel" ] ;then
-        echo ":: Setup canceled"
-        exit 130    
-    else
-        echo ":: Setup canceled"
-        exit 130
+_detectDistro() {
+    if [ -z "$distro" ]; then
+        echo "ERROR: Your Linux distribution could not be detected or is not supported."
+        echo
+        echo "Please select one of the following installation profiles or cancel the installation."
+        echo
+        PS3="Enter your choice (1-4): "
+        select version in "arch" "fedora" "lfs" "cancel"; do
+            if [ -n "$version" ]; then
+                break
+            else
+                echo "Invalid option. Please try again."
+            fi
+        done
+
+        case "$version" in
+            "arch")
+                echo ":: Installer for Arch"
+                distro="arch"
+                installer="arch"
+                ;;
+            "fedora")
+                echo ":: Installer for Fedora"
+                distro="fedora"
+                installer="fedora"
+                ;;
+            "lfs")
+                echo ":: Installer for LFS"
+                distro="LFS"
+                installer="LFS"
+                ;;
+            "cancel"|*)
+                echo ":: Setup canceled"
+                exit 130
+                ;;
+        esac
     fi
-fi
+}
+
 
 # ----------------------------------------------------- 
 # Installation for Fedora
@@ -181,6 +226,13 @@ fi
 # ----------------------------------------------------- 
 if [ "$installer" == "arch" ] ;then
     _installPackagesPacman "${installer_packages_arch[@]}";
+fi
+
+# ----------------------------------------------------- 
+# Installation for LFS
+# ----------------------------------------------------- 
+if [ "$installer" == "lfs" ] ;then
+    _installPackagesLFS
 fi
 
 # Create Downloads folder if not exists
