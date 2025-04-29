@@ -14,6 +14,7 @@ Ths script supports the following distributions:
 * Arch Linux (+ Arch Linux based distros e.g., EndeavourOS, Manjaro, ...)
 * Fedora Linux
 * Nobara Linux
+* Linux From Scratch (LFS/BLFS/GLFS/MLFS)
 * more to come soon...
 
 ## Documentation (Wiki)
