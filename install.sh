@@ -6,11 +6,11 @@
 # |_| |_|\__, | .__/|_|    |____/ \__\__,_|_|   \__\___|_|    
 #        |___/|_|                                             
 #  
-echo "IF YOU ARE USING LFS, YOU MUST NOT RUN THIS SCRIPT DIRECTLY."
-echo "LFS USERS MUST USE THE setup.sh FILE TO USE HYPRSTARTER."
-echo "DIRECTLY EXECUTING THIS SCRIPT WILL CAUSE MANY ISSUES FOR LFS USERS."
-echo "PRESS ENTER TO CONFIRM."
-read cheeeeeeck
+# echo "IF YOU ARE USING LFS, YOU MUST NOT RUN THIS SCRIPT DIRECTLY."
+# echo "LFS USERS MUST USE THE setup.sh FILE TO USE HYPRSTARTER."
+# echo "DIRECTLY EXECUTING THIS SCRIPT WILL CAUSE MANY ISSUES FOR LFS USERS."
+# echo "PRESS ENTER TO CONFIRM."
+# read cheeeeeeck
 # ----------------------------------------------------- 
 # Version
 # ----------------------------------------------------- 
