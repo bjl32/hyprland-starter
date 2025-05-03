@@ -27,6 +27,8 @@ You can install the Hyprland Starter on real hardware (bare metal) or test it fi
 
 Just copy the following command into your terminal and execute.
 
+**Do NOT directly execute install.sh, especially if you are using LFS.**
+
 ```
 bash <(curl -s https://raw.githubusercontent.com/mylinuxforwork/hyprland-starter/main/setup.sh)
 ```
