@@ -21,6 +21,15 @@ Ths script supports the following distributions:
 
 You can find the complete documentation of the ML4W Dotfiles in the Wiki. <b>[Open the Wiki here](https://github.com/mylinuxforwork/hyprland-starter/wiki)</b>
 
+## Dependency
+
+For **LFS**:
+
+- git (built with cURL)
+- wget
+- libarchive
+- rsync
+
 ## Installation
 
 You can install the Hyprland Starter on real hardware (bare metal) or test it first in a Virtual Machine based on QEMU/KVM with activated 3D acceleration.
