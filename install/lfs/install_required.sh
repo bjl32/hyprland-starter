@@ -1,4 +1,3 @@
-#    "wget"
-#    "unzip"
 #    "gum"
-#    "rsync"
+
+

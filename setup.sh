@@ -111,6 +111,22 @@ _installPackagesLFS(){
         exit 130;
     fi;
 
+    if [ -x /usr/bin/bsdunzip ]; then
+        echo "libarchive is installed at /usr/bin";
+        return;
+    else
+        echo "Error: libarchive not found in /usr/bin/. libarchive must be installed before using this script.";
+        exit 130;
+    fi;
+
+    if [ -x /usr/bin/rsync ]; then
+        echo "rsync is installed at /usr/bin/rsync";
+        return;
+    else
+        echo "Error: rsync not found in /usr/bin/rsync. Rsync must be installed before using this script.";
+        exit 130;
+    fi;
+
     mkdir ~/tmp/
     echo ":: Created temporary folder"
     cd ~/tmp/
