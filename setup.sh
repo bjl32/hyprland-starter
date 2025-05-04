@@ -99,9 +99,18 @@ _installPackagesLFS(){
         echo "Git is installed at /usr/bin/git";
         return;
     else
-        echo "Error: Git not found in /usr/bin/git. Git must be installed before using this script.";
+        echo "Error: Git not found in /usr/bin/git. Git must be installed before using this script.(Do NOT forget to build git with curl)";
         exit 130;
     fi;
+
+    if [ -x /usr/bin/wget ]; then
+        echo "wget is installed at /usr/bin/wget";
+        return;
+    else
+        echo "Error: wget not found in /usr/bin/wget. Wget must be installed before using this script.";
+        exit 130;
+    fi;
+
     mkdir ~/tmp/
     echo ":: Created temporary folder"
     cd ~/tmp/
